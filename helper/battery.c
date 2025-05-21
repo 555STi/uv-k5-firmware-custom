@@ -115,9 +115,11 @@ void BATTERY_GetReadings(const bool bDisplayBatteryLevel)
 	gBatteryVoltageAverage = (Voltage * 760) / gBatteryCalibration[3];
 
 	if(gBatteryVoltageAverage > 890)
-		gBatteryDisplayLevel = 7; // battery overvoltage
-	else if(gBatteryVoltageAverage < 630)
-		gBatteryDisplayLevel = 0; // battery critical
+	        gBatteryDisplayLevel = 7; // battery overvoltage
+	else if(gBatteryVoltageAverage < 630 && (gEeprom.BATTERY_TYPE == BATTERY_TYPE_1600_MAH || gEeprom.BATTERY_TYPE == BATTERY_TYPE_2200_MAH))
+	        gBatteryDisplayLevel = 0; // battery critical
+	else if(gBatteryVoltageAverage < 600 && (gEeprom.BATTERY_TYPE == BATTERY_TYPE_3500_MAH))
+	        gBatteryDisplayLevel = 0; // battery critical
 	else {
 		gBatteryDisplayLevel = 1;
 		const uint8_t levels[] = {5,17,41,65,88};
