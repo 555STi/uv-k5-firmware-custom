@@ -71,10 +71,24 @@ const uint16_t Voltage2PercentageTable[][7][2] = {
 		{630, 0  },
 		{0,   0  },
 	},
+
+	[BATTERY_TYPE_3500_MAH] = {
+        {837, 100},
+        {826, 95 },
+        {750, 50 },
+        {700, 25 },
+        {620, 5  },
+        {600, 0  },
+        {0,   0  },
+    },
 };
 
-static_assert(ARRAY_SIZE(Voltage2PercentageTable[BATTERY_TYPE_1600_MAH]) ==
-	ARRAY_SIZE(Voltage2PercentageTable[BATTERY_TYPE_2200_MAH]));
+static_assert(
+    (ARRAY_SIZE(Voltage2PercentageTable[BATTERY_TYPE_1600_MAH]) ==
+    ARRAY_SIZE(Voltage2PercentageTable[BATTERY_TYPE_2200_MAH])) &&
+    (ARRAY_SIZE(Voltage2PercentageTable[BATTERY_TYPE_2200_MAH]) ==
+    ARRAY_SIZE(Voltage2PercentageTable[BATTERY_TYPE_3500_MAH]))
+    );
 
 
 unsigned int BATTERY_VoltsToPercent(const unsigned int voltage_10mV)
